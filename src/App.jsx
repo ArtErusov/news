@@ -1,9 +1,11 @@
-import './App.css'
+import './assets/css/main.css';
 
 function App() {
   return (
     <>
-     
+     <div className='test'>
+      <p>Привет Мир!!!</p>
+     </div>
     </>
   )
 }
