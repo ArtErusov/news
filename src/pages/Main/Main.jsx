@@ -19,11 +19,16 @@ function Main() {
     fetchNews();
 }, []); 
 
-  return (
- <>
-{news.length > 0 ? <NewsBanner  item={news[3]}/> : null}
- </>
-  )
+return (
+  <div className={styles.container}>
+    {news.length > 0 && (
+      <div className={styles.banners}>
+        <NewsBanner item={news[0]} />
+        <NewsBanner item={news[3]} />
+      </div>
+    )}
+  </div>
+)
 }
 
 export default Main

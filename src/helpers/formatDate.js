@@ -1,9 +1,9 @@
 export const formatDate = (date) => {
     const options = {
-        // weekday: "long",
+        weekday: "long",
         year: "numeric",
         month: "long",
-        // day: "numeric",
+        day: "numeric",
     };
     return date.toLocaleDateString("en-US", options);
 };
