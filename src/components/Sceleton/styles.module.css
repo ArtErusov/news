@@ -1,0 +1,13 @@
+@import '../../assets/css/main.css';
+.banner{
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+}
+
+.item{
+    width: 100px;
+    height: 100px;
+    background-color: rgb(1, 73, 73);
+
+}
