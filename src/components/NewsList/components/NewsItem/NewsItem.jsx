@@ -20,6 +20,7 @@ console.log(LengthCheck(item.author))
       ></div>
       <div className={styles.info}>
         <h3 className={styles.title}>{item.title}</h3>
+        {/* Сделать в функции второй аргумент который принемает длину и укоротить некоторые элементы h3 */}
         <p className={styles.extra}>
           {formatTimeAgo(item.published)} by {LengthCheck(item.author)}
         </p>

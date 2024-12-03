@@ -28,35 +28,25 @@ function Main() {
   return (
     <>
       <div className={styles.container}>
-      {isLoading ? (
-      <div className={styles.banners}>
-      <NewsBanner item={news[0]} />
-      <NewsBanner item={news[1]} />
+        <div className={styles.banners}>
+        {isLoading ? (
+            <>
+            {/* Сделать массив, в который передавать новости и в NewsBanner отрисовывать их */}
+            <NewsBanner item={news[0]} />
+            <NewsBanner item={news[1]} />
+             </>
+        ) : (
+            <Sceleton count = {2}/> 
+        )
+      }
+      </div>
     </div>
-      )
-     : (<div className={styles.banners}>
-      <Sceleton />
-      <Sceleton />
-      </div>)
-     
-     }
-        
-
-      
-
-      </div>
-      <div className={styles.divider}></div>
-      <div className={styles.container}>
-        <NewsList news={news} />
-      </div>
+    <div className={styles.divider}></div>
+    <div className={styles.container}>
+     {isLoading ? <NewsList news={news} /> : <Sceleton count = {10}/> }
+    </div>
     </>
   );
 }
 
 export default Main;
-  {/* {news.length > 0 && (
-          <div className={styles.banners}>
-            <NewsBanner item={news[0]} />
-            <NewsBanner item={news[1]} />
-          </div>
-        )} */}
