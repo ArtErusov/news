@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
+import { getNews } from "../../api/apiNews";
+
 import NewsBanner from "../../components/NewsBanner/NewsBanner";
 import styles from "./styles.module.css";
-import { getNews } from "../../api/apiNews";
 import NewsList from "../../components/NewsList/NewsList";
+import Sceleton from "../../components/Sceleton/Sceleton";
 
 function Main() {
   const [news, setNews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
+        setIsLoading(false);
         const response = await getNews();
         setNews(response.news);
+        setIsLoading(true);
       } catch (error) {
         console.log("Не удалось получить новости (Main):", error);
       }
@@ -23,17 +28,23 @@ function Main() {
   return (
     <>
       <div className={styles.container}>
-        {news.length > 0 && (
-          <div className={styles.banners}>
+        <div className={styles.banners}>
+        {isLoading ? (
+            <>
+            {/* Сделать массив, в который передавать новости и в NewsBanner отрисовывать их */}
             <NewsBanner item={news[0]} />
-            <NewsBanner item={news[3]} />
-          </div>
-        )}
+            <NewsBanner item={news[1]} />
+             </>
+        ) : (
+            <Sceleton count = {2}/> 
+        )
+      }
       </div>
-      <div className={styles.divider}></div>
-      <div className={styles.container}>
-        <NewsList news={news} />
-      </div>
+    </div>
+    <div className={styles.divider}></div>
+    <div className={styles.container}>
+     {isLoading ? <NewsList news={news} /> : <Sceleton count = {10}/> }
+    </div>
     </>
   );
 }
