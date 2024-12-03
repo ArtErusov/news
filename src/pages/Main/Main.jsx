@@ -24,7 +24,7 @@ function Main() {
 
     fetchNews();
   }, []);
-
+// тест git
   return (
     <>
       <div className={styles.container}>
