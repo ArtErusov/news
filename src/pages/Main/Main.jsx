@@ -5,26 +5,51 @@ import NewsBanner from "../../components/NewsBanner/NewsBanner";
 import styles from "./styles.module.css";
 import NewsList from "../../components/NewsList/NewsList";
 import Sceleton from "../../components/Sceleton/Sceleton";
+import Pagination from "../../components/Pagination/Pagination";
 
 function Main() {
   const [news, setNews] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+
+
+// ============Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 10;
+  const pageSize = 10;
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
+
+  const handlePageClick = (pageNumber) => setCurrentPage(pageNumber)
+  
+// ==========
+
+
+  const fetchNews = async (currentPage) => {
+        try {
+          setIsLoading(false);
+          const response = await getNews(currentPage, pageSize);
+          setNews(response.news);
+          setIsLoading(true);
+        } catch (error) {
+          console.log("Не удалось получить новости (Main):", error);
+        }
+      };
 
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        setIsLoading(false);
-        const response = await getNews();
-        setNews(response.news);
-        setIsLoading(true);
-      } catch (error) {
-        console.log("Не удалось получить новости (Main):", error);
-      }
-    };
+    
+    fetchNews(currentPage);
+  }, [currentPage]);
 
-    fetchNews();
-  }, []);
-// тест git
   return (
     <>
       <div className={styles.container}>
@@ -43,6 +68,13 @@ function Main() {
     </div>
     <div className={styles.divider}></div>
     <div className={styles.container}>
+      <Pagination 
+        totalPages={totalPages} 
+        currentPage={currentPage}
+        handleNextPage={handleNextPage} 
+        handlePreviousPage={handlePreviousPage} 
+        handlePageClick={handlePageClick}
+      />
      {isLoading ? <NewsList news={news} /> : <Sceleton count = {10}/> }
     </div>
     </>
